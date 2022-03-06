@@ -94,7 +94,7 @@ WHERE rideable_type is NULL;
 
 /* This calculates the minimum & maximum, start & end longitudes and latitudes*/ 
 SELECT MIN (end_lng) AS min_end_lag, 
-MAX(end_lng) AS min_end_lag, 
+MAX(end_lng) AS max_end_lag, 
 MIN (end_lat) AS min_end_lat, 
 MAX(end_lat) AS max_end_lat, 
 MIN (start_lng) AS min_start_lng, 
