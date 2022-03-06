@@ -19,7 +19,7 @@ The code below begins from step 3.
 
 */
 
-/*   Step 3: Combining all the data acquired into a single table   */
+-------Step 3: Combining all the data acquired into a single table----------
 
 SELECT *
 	INTO divvy_tripsdata
@@ -71,19 +71,41 @@ UNION
 
 SELECT*
 FROM dbo.[202109-divvy-tripdata]
-) divvy
+) divvy;
 
+
+------Step 4: Inspect Table for irregularities----------
+/* To check for Duplicates */
+
+SELECT  DISTINCT *
+FROM  divvy_tripsdata;
 
 /*   To check for Null values in the newly joint created table    */
-SELECT *
-FROM divvy_tripsdata
-WHERE started_at is NULL AND ended_at is NULL
 
 
 SELECT *
 FROM divvy_tripsdata
-WHERE rideable_type is NULL
+WHERE started_at is NULL AND ended_at is NULL;
 
+
+SELECT *
+FROM divvy_tripsdata
+WHERE rideable_type is NULL;
+
+/* This calculates the minimum & maximum, start & end longitudes and latitudes*/ 
+SELECT MIN (end_lng) AS min_end_lag, 
+MAX(end_lng) AS min_end_lag, 
+MIN (end_lat) AS min_end_lat, 
+MAX(end_lat) AS max_end_lat, 
+MIN (start_lng) AS min_start_lng, 
+MAX(start_lng) AS max_start_lng, 
+MIN (start_lat) AS min_start_lat, 
+MAX(start_lat) AS max_start_lat
+FROM divvy_tripsdata;
+
+
+
+-------Step 5: Create Queries to Analyse and produce Data Visualisations------------
 
 /*This counts the total number of rides per day of the week for members and casuals seperately*/
 SELECT DATENAME(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
@@ -99,7 +121,7 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
-     END ASC
+     END ASC;
 
 SELECT DATENAME(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
 FROM divvy_tripsdata
@@ -114,7 +136,7 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
-     END ASC
+     END ASC;
 
 
 /*    This query calculates the total Daily Hours spent riding bikes per day of the week for Members, Casual and Both Combined for the Year.  */
@@ -131,7 +153,7 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
-     END ASC
+     END ASC;
 
 
 SELECT DATENAME(dw,started_at) AS day_of_week,SUM(DATEDIFF(HH,started_at,ended_at)) AS ride_length_in_Hours_Casual
@@ -147,7 +169,7 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
-     END ASC
+     END ASC;
 
 SELECT DATENAME(dw,started_at) AS day_of_week,SUM(DATEDIFF(HH,started_at,ended_at)) AS ride_length_Total
 FROM divvy_tripsdata
@@ -162,7 +184,7 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
-     END ASC
+     END ASC;
 
 
 
@@ -184,28 +206,33 @@ FROM divvy_tripsdata
 WHERE member_casual = 'member'
 GROUP BY start_station_name
 ORDER BY Number_usedMember DESC
-OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY;
 
 SELECT start_station_name,COUNT(start_station_name) AS Number_usedCasual
 FROM divvy_tripsdata
 WHERE member_casual = 'casual'
 GROUP BY start_station_name
 ORDER BY Number_usedCasual DESC
-OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY;
 
 SELECT start_station_name,COUNT(start_station_name) AS Number_used
 FROM divvy_tripsdata
 GROUP BY start_station_name
 ORDER BY Number_used DESC
-OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY;
 
 /*  This Query Shows which bike type was used and how many times it was used over the year  */
 SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
 FROM divvy_tripsdata
 WHERE member_casual ='member'
-GROUP BY rideable_type
+GROUP BY rideable_type;
 
 SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
 FROM divvy_tripsdata
 WHERE member_casual ='casual'
-GROUP BY rideable_type
+GROUP BY rideable_type;
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+GROUP BY rideable_type*;
+
