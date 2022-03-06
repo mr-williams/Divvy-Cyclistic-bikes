@@ -130,3 +130,12 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
      END ASC
+/* This query is for the counting how many users for the year between members & casuals as well as the minimum,maximum and average length of rides in minutes*/
+SELECT member_casual, 
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE started_at < ended_at
+GROUP BY member_casual;
