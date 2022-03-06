@@ -73,6 +73,18 @@ SELECT*
 FROM dbo.[202109-divvy-tripdata]
 ) divvy
 
+
+/*   To check for Null values in the newly joint created table    */
+SELECT *
+FROM divvy_tripsdata
+WHERE started_at is NULL AND ended_at is NULL
+
+
+SELECT *
+FROM divvy_tripsdata
+WHERE rideable_type is NULL
+
+
 /*This counts the total number of rides per day of the week for members and casuals seperately*/
 SELECT DATENAME(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
 FROM divvy_tripsdata
@@ -105,7 +117,7 @@ ORDER BY
      END ASC
 
 
-/*This query calculates the total Hours spent riding*/
+/*    This query calculates the total Daily Hours spent riding bikes per day of the week for Members, Casual and Both Combined for the Year.  */
 SELECT DATENAME(dw,started_at) AS day_of_week,SUM(DATEDIFF(HH,started_at,ended_at)) AS ride_length_in_Hours_Member
 FROM divvy_tripsdata
 WHERE member_casual = 'member' AND  started_at < ended_at
@@ -151,7 +163,10 @@ ORDER BY
           WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
           WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
      END ASC
-/* This query is for the counting how many users for the year between members & casuals as well as the minimum,maximum and average length of rides in minutes*/
+
+
+
+/*  This query is for the counting how many users for the year between members & casuals as well as the minimum,maximum and average length of rides in minutes   */
 SELECT member_casual, 
 	   COUNT(rideable_type) Bike_usage,
 	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
@@ -160,3 +175,37 @@ SELECT member_casual,
 FROM divvy_tripsdata
 WHERE started_at < ended_at
 GROUP BY member_casual;
+
+
+
+/*      This Query shows the top 25 stations that were mostly used over the year for Casual, Members & Combined Riders   */
+SELECT start_station_name,COUNT(start_station_name) AS Number_usedMember
+FROM divvy_tripsdata
+WHERE member_casual = 'member'
+GROUP BY start_station_name
+ORDER BY Number_usedMember DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+
+SELECT start_station_name,COUNT(start_station_name) AS Number_usedCasual
+FROM divvy_tripsdata
+WHERE member_casual = 'casual'
+GROUP BY start_station_name
+ORDER BY Number_usedCasual DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+
+SELECT start_station_name,COUNT(start_station_name) AS Number_used
+FROM divvy_tripsdata
+GROUP BY start_station_name
+ORDER BY Number_used DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+
+/*  This Query Shows which bike type was used and how many times it was used over the year  */
+SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='member'
+GROUP BY rideable_type
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='casual'
+GROUP BY rideable_type
