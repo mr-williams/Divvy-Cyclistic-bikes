@@ -1,4 +1,25 @@
-/**/
+/*
+
+This is the SQL script used to import, compile, clean and analyse the Case Study(Cyclystic Bike Share)
+for the Capstone Project of the Google Data Analytics Professional Certificate.
+
+The Database used was Microsoft SQL Server Management Studio.
+
+The data was gotten from (https://divvy-tripdata.s3.amazonaws.com/index.html)
+
+The following steps done:
+1. Download the various CSV documents
+2. Import the data into serparate tables 
+3. Combining all tables into a singular table
+4. Inspect Table for irregularities
+5. Create Queries to Analyse and produce Data Visualisations
+
+
+The code below begins from step 3.
+
+*/
+
+/*   Step 3: Combining all the data acquired into a single table   */
 
 SELECT *
 	INTO divvy_tripsdata
