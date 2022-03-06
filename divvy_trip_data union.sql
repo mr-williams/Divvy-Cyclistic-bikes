@@ -236,3 +236,258 @@ SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
 FROM divvy_tripsdata
 GROUP BY rideable_type*;
 
+
+
+----Quarterly Breakdown of data analysis------
+
+/* Q1 Breakdown  */
+/*This Query Shows the Complete Table for this Quarter*/
+SELECT *
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2020-10-01' AND '2020-12-31'
+ORDER BY started_at ASC
+
+
+/*This Query is for the Daily Total number of rides between Member & Casual Riders in this Quarter*/
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Casual_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+/*This Query Shows which bike type was used and how many times it was used over the Quarter*/
+SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31')
+GROUP BY rideable_type
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31')
+GROUP BY rideable_type
+
+
+/* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
+SELECT member_casual, 
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2020-10-01' AND '2020-11-30') AND started_at <= ended_at
+GROUP BY member_casual
+UNION
+
+SELECT member_casual, 
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31') AND started_at <= ended_at
+GROUP BY member_casual
+
+
+/* Top 25 Most Used Stations in this quarter*/
+SELECT start_station_name,COUNT(start_station_name) AS number_of_Times_Used
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2020-10-01' AND '2020-12-31'
+GROUP BY start_station_name
+ORDER BY number_of_Times_Used DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+
+
+
+/*    Q2 Breakdown     */
+/*This Query Shows the Complete Table for this Quarter*/
+SELECT *
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-01-01' AND '2021-03-31'
+ORDER BY started_at ASC
+
+
+/*This Query is for the Daily Total number of rides between Member & Casual Riders in this Quarter*/
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_Q2
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Casual_rides_Q2
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+
+/* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
+SELECT member_casual,
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31') AND started_at <= ended_at
+GROUP BY member_casual
+UNION
+
+SELECT  member_casual,
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31') AND started_at <= ended_at
+GROUP BY member_casual
+
+/* Top 25 Most Used Stations in this quarter*/
+SELECT start_station_name,COUNT(start_station_name) AS number_of_Times_Used
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-01-01' AND '2021-03-31'
+GROUP BY start_station_name
+ORDER BY number_of_Times_Used DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY;
+
+/*This Query Shows which bike type was used and how many times it was used over the Quarter*/
+SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31')
+GROUP BY rideable_type
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31')
+GROUP BY rideable_type
+
+
+/*   Q3 Breakdwon  */
+/*This Query Shows the Complete Table for this Quarter*/
+SELECT *
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-04-01' AND '2021-06-30'
+ORDER BY started_at ASC
+
+/*This Query is for the Daily Total number of rides between Member & Casual Riders in this Quarter*/
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Casual_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+
+/*This Query Shows which bike type was used and how many times it was used over the Quarter*/
+SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30')
+GROUP BY rideable_type
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30')
+GROUP BY rideable_type
+
+
+/* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
+SELECT member_casual,
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30') AND started_at <= ended_at
+GROUP BY member_casual
+UNION
+
+SELECT  member_casual,
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30') AND started_at <= ended_at
+GROUP BY member_casual
+
+
+/* Top 25 Most Used Stations in this quarter*/
+SELECT start_station_name,COUNT(start_station_name) AS number_of_Times_Used
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-04-01' AND '2021-06-30'
+GROUP BY start_station_name
+ORDER BY number_of_Times_Used DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
+
+
+/*   Q4 Breakdown   */
+/*This Query Shows the Complete Table for this Quarter*/
+SELECT *
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-07-01' AND '2021-09-30'
+ORDER BY started_at ASC
+
+/*This Query is for the Daily Total number of rides between Member & Casual Riders in this Quarter*/
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Member_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+
+SELECT DATEPART(dw,started_at) AS day_of_week, COUNT(DATEPART(dw,started_at)) AS Casual_rides_TOTAL
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30')
+GROUP BY DATEPART(dw,started_at) 
+ORDER BY DATEPART(dw,started_at)
+
+
+/*This Query Shows which bike type was used and how many times it was used over the year*/
+SELECT rideable_type,COUNT(rideable_type) AS Member_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30')
+GROUP BY rideable_type
+
+SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30')
+GROUP BY rideable_type
+
+
+/* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
+SELECT member_casual, 
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='member' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30') AND started_at <= ended_at
+GROUP BY member_casual
+UNION
+
+SELECT member_casual, 
+	   COUNT(rideable_type) Bike_usage,
+	   MIN(DATEDIFF(MI,started_at,ended_at)) AS MIN_ride_length_in_minutes, 
+	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
+	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
+FROM divvy_tripsdata
+WHERE member_casual ='casual' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30') AND started_at <= ended_at
+GROUP BY member_casual
+
+/* Top 25 Most Used Stations in this quarter*/
+SELECT start_station_name,COUNT(start_station_name) AS number_of_Times_Used
+FROM divvy_tripsdata
+WHERE started_at BETWEEN '2021-07-01' AND '2021-09-30'
+GROUP BY start_station_name
+ORDER BY number_of_Times_Used DESC
+OFFSET 0 ROWS FETCH FIRST 25 ROWS ONLY
