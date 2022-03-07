@@ -240,7 +240,7 @@ GROUP BY rideable_type*;
 
 ----Quarterly Breakdown of data analysis------
 
-/* Q1 Breakdown  */
+         /* Q1 Breakdown  */
 /*This Query Shows the Complete Table for this Quarter*/
 SELECT *
 FROM divvy_tripsdata
@@ -275,7 +275,7 @@ GROUP BY rideable_type
 /*This query is for the total ride hours per day of week*/
 SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Casual
 FROM divvy_tripsdata
-WHERE member_casual = 'casual' AND (started_at BETWEEN '2020-11-01' AND '2020-11-30') AND started_at <= ended_at
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31') AND started_at <= ended_at
 GROUP BY DATENAME(dw,started_at)
 ORDER BY CASE
           WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
@@ -289,7 +289,7 @@ ORDER BY CASE
 
 SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Member
 FROM divvy_tripsdata
-WHERE member_casual = 'member' AND (started_at BETWEEN '2020-11-01' AND '2020-11-30') AND started_at <= ended_at
+WHERE member_casual = 'member' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31') AND started_at <= ended_at
 GROUP BY DATENAME(dw,started_at)
 ORDER BY CASE
           WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
@@ -309,7 +309,7 @@ SELECT member_casual,
 	   MAX(DATEDIFF(MI,started_at,ended_at)) AS MAX_ride_length_in_minutes,
 	   AVG(DATEDIFF(MI,started_at,ended_at)) AS Average_ride_length_in_minutes
 FROM divvy_tripsdata
-WHERE member_casual ='member' AND (started_at BETWEEN '2020-10-01' AND '2020-11-30') AND started_at <= ended_at
+WHERE member_casual ='member' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31') AND started_at <= ended_at
 GROUP BY member_casual
 UNION
 
