@@ -272,6 +272,35 @@ FROM divvy_tripsdata
 WHERE member_casual ='casual' AND (started_at BETWEEN '2020-10-01' AND '2020-12-31')
 GROUP BY rideable_type
 
+/*This query is for the total ride hours per day of week*/
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Casual
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2020-11-01' AND '2020-11-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Member
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2020-11-01' AND '2020-11-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
 
 /* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
 SELECT member_casual, 
@@ -326,6 +355,36 @@ GROUP BY DATEPART(dw,started_at)
 ORDER BY DATEPART(dw,started_at)
 
 
+/*This query is for the total ride hours per day of week*/
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Casual
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31')AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Member
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-01-01' AND '2021-03-31') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
+
 /* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
 SELECT member_casual,
 	   COUNT(rideable_type) Bike_usage,
@@ -366,6 +425,7 @@ WHERE member_casual ='casual' AND (started_at BETWEEN '2021-01-01' AND '2021-03-
 GROUP BY rideable_type
 
 
+
 /*   Q3 Breakdwon  */
 /*This Query Shows the Complete Table for this Quarter*/
 SELECT *
@@ -398,6 +458,35 @@ SELECT rideable_type,COUNT(rideable_type) AS Casual_Bike_usage
 FROM divvy_tripsdata
 WHERE member_casual ='casual' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30')
 GROUP BY rideable_type
+
+/*This query is for the total ride hours per day of week*/
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Casual
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Member
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-04-01' AND '2021-06-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
 
 
 /* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
@@ -463,6 +552,34 @@ FROM divvy_tripsdata
 WHERE member_casual ='casual' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30')
 GROUP BY rideable_type
 
+/*This query is for the total ride hours per day of week*/
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Casual
+FROM divvy_tripsdata
+WHERE member_casual = 'casual' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
+
+SELECT DATENAME(dw,started_at) AS day_of_week, SUM(DATEDIFF(HH,started_at,ended_at)) AS Ride_Hours_Member
+FROM divvy_tripsdata
+WHERE member_casual = 'member' AND (started_at BETWEEN '2021-07-01' AND '2021-09-30') AND started_at <= ended_at
+GROUP BY DATENAME(dw,started_at)
+ORDER BY CASE
+          WHEN DATENAME(dw,started_at) = 'Sunday' THEN 1
+          WHEN DATENAME(dw,started_at) = 'Monday' THEN 2
+          WHEN DATENAME(dw,started_at) = 'Tuesday' THEN 3
+          WHEN DATENAME(dw,started_at) = 'Wednesday' THEN 4
+          WHEN DATENAME(dw,started_at) = 'Thursday' THEN 5
+          WHEN DATENAME(dw,started_at) = 'Friday' THEN 6
+          WHEN DATENAME(dw,started_at) = 'Saturday' THEN 7
+     END ASC;
 
 /* This Query Shows the Bike Usage Count, Minimum, Maximum and Average Ride length in minutes Between Members & Casual Riders*/
 SELECT member_casual, 
