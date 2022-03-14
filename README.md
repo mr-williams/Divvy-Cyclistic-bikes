@@ -1,5 +1,5 @@
 # Divvy-Cyclistic-bikes
-Google Data Analytics Course Capstone Project
+## Google Data Analytics Course Capstone Project
 
 This Case Study was completed as part of the Google Data Analytics Professional Certificate
 
