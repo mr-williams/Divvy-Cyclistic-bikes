@@ -35,6 +35,7 @@ There are 6 steps to be followed for Data Analytics:
 
 6. Act:
   
-   A presentation was made to summarise this entire project.
+   A presentation was made to summarise this entire project. Here is the provided link:
+   https://docs.google.com/presentation/d/1MI6LCerxxBoyBpfPnmA4W4hb8LSmR2nrZ4BgNEwEySQ/edit?usp=sharing
 
 
