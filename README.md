@@ -31,7 +31,7 @@ There are 6 steps to be followed for Data Analytics:
 5. Share:
    
    The Visualisations for this step were created using Tableau: 
-  [Divvy-Bike Share](https://public.tableau.com/app/profile/emmanuel.williams4813/viz/GoogleCapstoneProjectDivvyBikeShare/Q4BikeUsage)
+  [Divvy-Bike Share](https://public.tableau.com/app/profile/emmanuel.williams4813/viz/GoogleCapstoneProjectDivvyBikeShare/Dashboard2)
 
 6. Act:
   
