@@ -1,7 +1,7 @@
 # Divvy-Cyclistic-bikes
 ## Google Data Analytics Course Capstone Project
+The data analysis was done for the Cyclistic bike-share company in order to help them attract more riders and to better understand how annual members and casual riders differ. The steps performed are the steps used in the data analysis procedure.
 
-This Case Study was completed as part of the Google Data Analytics Professional Certificate
 
 There are 6 steps to be followed for Data Analytics:
 1. Ask:
@@ -37,5 +37,8 @@ There are 6 steps to be followed for Data Analytics:
   
    A presentation was made to summarise this entire project. Here is the provided link:
    [Member Vs Casual Riders](https://docs.google.com/presentation/d/1MI6LCerxxBoyBpfPnmA4W4hb8LSmR2nrZ4BgNEwEySQ/edit?usp=sharing)
+   
+**This Case Study was completed as part of the Google Data Analytics Professional Certificate**
+
 
 
